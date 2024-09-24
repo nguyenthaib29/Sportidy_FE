@@ -1,5 +1,9 @@
 export type RootStackParamList = {
-  Splash: undefined;
-  SignUp: undefined;
+  Splash: any;
+  SignUp: any;
+  Login: any;
+  ForgotPassword: any;
+  Verification: any;
+  NewPassword: any;
   // Add other screen names and their params here
 };

@@ -8,8 +8,17 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./styles";
+import { useNavigation } from "expo-router";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../../types/types"; // Adjust the path as necessary
+
+type SignUpScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  "SignUp"
+>;
 
 const SignUpScreen = () => {
+  const navigation = useNavigation<SignUpScreenNavigationProp>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,7 +76,11 @@ const SignUpScreen = () => {
         <Text style={styles.googleButtonText}>Google</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Login");
+        }}
+      >
         <Text style={styles.loginText}>
           Already have an account? <Text style={styles.loginLink}>Login</Text>
         </Text>
