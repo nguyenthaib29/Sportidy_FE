@@ -2,6 +2,10 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SplashScreen from "./screens/SplashScreen";
 import SignUpScreen from "./screens/SignUpScreen";
+import LoginScreen from "./screens/LoginScreen";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import VerificationScreen from "./screens/VerificationScreen";
+import NewPasswordScreen from "./screens/NewPasswordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -10,6 +14,10 @@ export default function Layout() {
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen name="Verification" component={VerificationScreen} />
+      <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
       {/* Add other screens here */}
     </Stack.Navigator>
   );

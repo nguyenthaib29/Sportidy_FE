@@ -48,7 +48,7 @@ const SplashScreenComponent = () => {
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => {
-          /* Navigate to login screen */
+          navigation.navigate("Login");
         }}
       >
         <Text style={styles.loginButtonText}>
