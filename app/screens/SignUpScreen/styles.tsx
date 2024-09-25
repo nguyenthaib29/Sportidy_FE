@@ -16,20 +16,19 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "#FF8C00",
-    marginBottom: 8,
+    color: "#F8931E",
   },
   subtitle: {
     fontSize: 16,
+    fontWeight: "bold",
     color: "#7e7e7e",
     marginBottom: 20,
   },
   form: {
     width: "100%",
-    height: "80%",
-    backgroundColor: "#F8931E",
+    height: "83%",
     padding: 20,
-    borderRadius: 30,
+    borderRadius: 20,
     bottom: 0,
   },
   textInput: {
@@ -57,7 +56,7 @@ export const styles = StyleSheet.create({
     width: "100%",
   },
   signUpButton: {
-    borderRadius: 30,
+    borderRadius: 20,
     padding: 15,
     width: "65%",
     alignSelf: "center",
@@ -76,7 +75,7 @@ export const styles = StyleSheet.create({
   },
   googleButton: {
     backgroundColor: "#fff",
-    borderRadius: 30,
+    borderRadius: 20,
     padding: 15,
     width: "65%",
     alignSelf: "center",

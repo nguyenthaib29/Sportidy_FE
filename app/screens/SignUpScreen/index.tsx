@@ -35,7 +35,7 @@ const SignUpScreen = () => {
         <Text style={styles.subtitle}>Sign Up to get started</Text>
       </View>
       <LinearGradient
-        colors={["#F74c06", "#F8931e", "#F9BC2C"]}
+        colors={[ "#F9BC2C","#F74c06"]}
         style={styles.form}
       >
         <View style={styles.inputContainer}>
