@@ -48,3 +48,7 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## For User Profile Screen
+
+Current User Profile Screen is for mock login. You must login by any email or password firstly before accessing to the user profile screen

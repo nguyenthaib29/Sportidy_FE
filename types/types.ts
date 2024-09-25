@@ -5,5 +5,6 @@ export type RootStackParamList = {
   ForgotPassword: any;
   Verification: any;
   NewPassword: any;
+  UserProfile: any;
   // Add other screen names and their params here
 };

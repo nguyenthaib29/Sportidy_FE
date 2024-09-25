@@ -6,6 +6,7 @@ import LoginScreen from "./screens/LoginScreen";
 import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
 import VerificationScreen from "./screens/VerificationScreen";
 import NewPasswordScreen from "./screens/NewPasswordScreen";
+import UserProfile from "./screens/UserProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function Layout() {
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
       <Stack.Screen name="Verification" component={VerificationScreen} />
       <Stack.Screen name="NewPassword" component={NewPasswordScreen} />
+      <Stack.Screen name="UserProfile" component={UserProfile} />
       {/* Add other screens here */}
     </Stack.Navigator>
   );
