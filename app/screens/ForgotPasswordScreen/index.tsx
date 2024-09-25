@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../../types/types"; // Adjust the import path as needed
+import { RootStackParamList } from "../../../types/types";
+import { styles } from "./styles";
 
 type ForgotPasswordScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -33,21 +27,19 @@ const ForgotPasswordScreen = () => {
   };
 
   const handleBackToSignIn = () => {
-    // Navigate back to the signIn screen
     navigation.navigate("Login");
   };
 
   const handleSignUp = () => {
-    // Navigate to the signUp screen
     navigation.navigate("SignUp");
   };
 
   return (
-    <LinearGradient colors={["#FFE484", "#FFA41B"]} style={styles.container}>
-      <Text style={styles.title}>Forgot Password</Text>
-      <Text style={styles.subtitle}>
-        Enter your email to reset your password
-      </Text>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Forgot Password</Text>
+        <Text style={styles.subtitle}>Enter Email Address</Text>
+      </View>
 
       <View style={styles.inputContainer}>
         <TextInput
@@ -73,66 +65,14 @@ const ForgotPasswordScreen = () => {
         <Text style={styles.resetButtonText}>Send</Text>
       </TouchableOpacity>
 
-      <span>Or</span>
+      <Text style={styles.orText}>Or</Text>
       {/* FB & Gmail icons*/}
       <span>Don't have an account?</span>
-      <TouchableOpacity
-        style={styles.backToSignInButton}
-        onPress={handleSignUp}
-      >
+      <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
         <Text style={styles.signUpButtonText}>Sign Up</Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 30,
-  },
-  inputContainer: {
-    width: "100%",
-    marginBottom: 20,
-  },
-  input: {
-    backgroundColor: "#FFD700",
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 10,
-  },
-  resetButton: {
-    backgroundColor: "#FFF",
-    borderRadius: 10,
-    padding: 15,
-    width: "100%",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  resetButtonText: {
-    fontWeight: "bold",
-    color: "#000",
-  },
-  backToSignInButton: {
-    padding: 15,
-  },
-  backToSignInButtonText: {
-    color: "#000",
-  },
-  signUpButtonText: {
-    color: "#000",
-  },
-});
 
 export default ForgotPasswordScreen;

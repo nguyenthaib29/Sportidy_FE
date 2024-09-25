@@ -1,67 +1,90 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Text, TouchableOpacity, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../types/types";
+import { styles } from "./styles";
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
 
 type VerificationScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "Verification"
 >;
 
+const CELL_COUNT = 4;
+
 const VerificationScreen = () => {
-  const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
+  const [value, setValue] = useState("");
   const navigation = useNavigation<VerificationScreenNavigationProp>();
 
+  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
+
   const handleVerify = () => {
-    navigation.navigate("NewPassword");
-    console.log("Verification code:", verificationCode.join(""));
+    if (value.length === CELL_COUNT) {
+      navigation.navigate("NewPassword");
+      console.log("Verification code:", value);
+    } else {
+      console.log("Incomplete verification code");
+    }
   };
 
   const handleResend = () => {
-    // Implement resend verification code logic here
     console.log("Resend verification code");
   };
 
-  const handleInputChange = (index: number, value: string) => {
-    const updatedCode = [...verificationCode];
-    updatedCode[index] = value;
-    setVerificationCode(updatedCode);
-  };
-
   return (
-    <LinearGradient colors={["#FFE484", "#FFA41B"]} style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>Verification</Text>
-      <Text style={styles.subtitle}>Enter the verification code</Text>
+      <Text style={styles.subtitle}>Enter Verification Code</Text>
 
-      <View style={styles.codeContainer}>
-        {verificationCode.map((digit, index) => (
-          <TextInput
+      <CodeField
+        ref={ref}
+        {...props}
+        value={value}
+        onChangeText={setValue}
+        cellCount={CELL_COUNT}
+        rootStyle={styles.codeFieldRoot}
+        keyboardType="number-pad"
+        textContentType="oneTimeCode"
+        autoComplete={
+          Platform.select({
+            android: "sms-otp",
+            ios: "one-time-code",
+            default: undefined,
+          }) as "sms-otp" | "one-time-code" | undefined
+        }
+        renderCell={({ index, symbol, isFocused }) => (
+          <Text
             key={index}
-            style={styles.codeInput}
-            maxLength={1}
-            value={digit}
-            onChangeText={(value) => handleInputChange(index, value)}
-            keyboardType="number-pad"
-          />
-        ))}
-      </View>
-
-      <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
-        <Text style={styles.verifyButtonText}>Verify</Text>
-      </TouchableOpacity>
+            style={[styles.cell, isFocused && styles.focusCell]}
+            onLayout={getCellOnLayoutHandler(index)}
+          >
+            {symbol || (isFocused ? <Cursor /> : null)}
+          </Text>
+        )}
+      />
 
       <TouchableOpacity style={styles.resendButton} onPress={handleResend}>
-        <Text style={styles.resendButtonText}>Resend</Text>
+        <Text style={styles.simpleText}>
+          You did not receive a code.{" "}
+          <Text style={styles.resendButtonText}>Resend</Text>
+        </Text>
       </TouchableOpacity>
 
+      <TouchableOpacity style={styles.verifyButton} onPress={handleVerify}>
+        <Text style={styles.verifyButtonText}>Send</Text>
+      </TouchableOpacity>
+
+      {/* Social buttons and other components */}
       <View style={styles.socialContainer}>
         <Text style={styles.orText}>or</Text>
         <View style={styles.socialButtons}>
@@ -74,80 +97,15 @@ const VerificationScreen = () => {
         </View>
       </View>
 
-      <span>Don't have an account?</span>
-      <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-        <Text>Sign Up</Text>
+      <Text style={styles.preSignUpText}>Don't have an account?</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("SignUp")}
+        style={styles.signUpButton}
+      >
+        <Text style={styles.signUpButtonText}>Sign up</Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 30,
-  },
-  codeContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  codeInput: {
-    backgroundColor: "#FFD700",
-    borderRadius: 10,
-    padding: 15,
-    width: 50,
-    marginHorizontal: 10,
-    textAlign: "center",
-  },
-  verifyButton: {
-    backgroundColor: "#FFF",
-    borderRadius: 10,
-    padding: 15,
-    width: "100%",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  verifyButtonText: {
-    fontWeight: "bold",
-    color: "#000",
-  },
-  resendButton: {
-    padding: 15,
-  },
-  resendButtonText: {
-    color: "#000",
-  },
-  socialContainer: {
-    marginTop: 20,
-  },
-  orText: {
-    marginBottom: 10,
-  },
-  socialButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  socialButton: {
-    backgroundColor: "#FFF",
-    borderRadius: 10,
-    padding: 15,
-    width: "48%",
-    alignItems: "center",
-  },
-  socialButtonText: {
-    color: "#000",
-  },
-});
 
 export default VerificationScreen;
