@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../../types/types";
 import { styles } from "./styles";
 import Divider from "@/components/Divider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -17,9 +25,20 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
-  const handleLogin = () => {
-    // TODO: Implement login logic here
-    console.log("Login with:", email, password);
+  const handleLogin = async () => {
+    if (email && password) {
+      try {
+        // Save email to AsyncStorage
+        await AsyncStorage.setItem("userEmail", email);
+
+        // Navigate to UserProfile after successful login
+        navigation.navigate("UserProfile");
+      } catch (error) {
+        console.error("Failed to save email", error);
+      }
+    } else {
+      Alert.alert("Error", "Please enter both email and password.");
+    }
   };
 
   const handleGoogleLogin = () => {
