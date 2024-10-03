@@ -7,6 +7,8 @@ import { RootStackParamList } from "../../../types/types";
 import Divider from "../../../components/Divider";
 import { LinearGradient } from "expo-linear-gradient";
 
+
+
 type SignUpScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "SignUp"

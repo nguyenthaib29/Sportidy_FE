@@ -20,6 +20,7 @@ type LoginScreenNavigationProp = NativeStackNavigationProp<
   "Login"
 >;
 
+
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +33,7 @@ const LoginScreen = () => {
         await AsyncStorage.setItem("userEmail", email);
 
         // Navigate to UserProfile after successful login
-        navigation.navigate("UserProfile");
+        navigation.navigate("Clubscreen");
       } catch (error) {
         console.error("Failed to save email", error);
       }
