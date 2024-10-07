@@ -33,7 +33,7 @@ const LoginScreen = () => {
         await AsyncStorage.setItem("userEmail", email);
 
         // Navigate to UserProfile after successful login
-        navigation.navigate("Clubscreen");
+        navigation.navigate("UserProfile");
       } catch (error) {
         console.error("Failed to save email", error);
       }
